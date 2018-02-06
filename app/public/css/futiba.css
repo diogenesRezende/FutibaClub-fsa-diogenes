@@ -23,6 +23,7 @@ h6 {
 }
 
 .hm-gradient .full-bg-img {
+  position: fixed;	
   background: -moz-linear-gradient(45deg, rgba(38, 161, 27, 0.7), rgba(35, 210, 29, 0.7) 100%);
   background: -webkit-linear-gradient(45deg, rgba(81, 161, 27, 0.7), rgba(35, 210, 29, 0.7) 100%);
   background: -webkit-gradient(linear, 45deg, from(rgba(69, 161, 27, 0.7)), to(rgba(35, 210, 29, 0.7)));

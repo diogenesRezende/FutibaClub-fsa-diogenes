@@ -6,24 +6,29 @@ const session = require('express-session')
 
 const account = require('./account')
 const admin = require('./admin')
+const groups = require('./groups')
+const classification = require('./classification')
+
 
 app.use(express.static('public'))
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({extended:true}))
 app.use(session({
     secret: 'fullstack-academy',
     resave: true,
     saveUninitialized: true
 }))
+
 app.set('view engine','ejs')
 
-const init = async() =>{
+const init = async() => {
     const connection = await mysql.createConnection({
         host: '127.0.0.1',
         user: 'root',
         password: '',
         database: 'futiba-club'
     })
-    app.use((req,res, next)=>{
+   
+    app.use((req, res, next) => {
         if(req.session.user){
             res.locals.user = req.session.user
         }else{
@@ -31,18 +36,15 @@ const init = async() =>{
         }
         next()
     })
-
+  
     app.use(account(connection))
     app.use('/admin', admin(connection))
+    app.use('/groups', groups(connection))
+    app.use('/classification', classification(connection))
 
     app.listen(3000, err => {
-        if(err){
-            
-            console.log('Futiba Club server is not running! Cause=>', err)
-        }else{
-            console.log('Futiba Club server not running!')
-        }
+        console.log('Futiba Club server is running...')
     })
 }
-init()
 
+init()

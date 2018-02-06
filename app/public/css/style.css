@@ -1,1 +1,32 @@
 /* Your custom styles */
+.navbar .dropdown-menu a:hover{
+  color: #000 !important;
+}
+section.intro-2{
+  padding-bottom: 20px;
+}
+
+section.intro-2 .white-text{
+  margin-bottom: 30px;
+}
+
+section.classificacao-home{
+  margin-top: 30px;
+}
+
+section.classificacao{
+  margin-top: 150px;
+}
+
+section.classificacao-home h2, section.classificacao h2{
+  text-align: center;
+  font-weight: 700;
+}
+
+.forms-home{
+  margin-top: 30px;
+}
+.sem-conta{
+  font-size: 13px;
+  text-align: right;
+}

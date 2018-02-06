@@ -22,7 +22,7 @@
         <!--Navbar-->
         <nav class="navbar navbar-expand-lg navbar-light green fixed-top scrolling-navbar">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                     <img src="/img-futiba-club/logo.png" height="30" alt="Futiba Club">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7"
@@ -30,7 +30,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent-7">
-                    <% include ../elements/menu-itens %>                     
+                    <% include elements/menu-itens %>                     
                 </div>
             </div>
         </nav>
@@ -39,62 +39,58 @@
     <section class="content">
         <div class="container">
             <div class="row">
-                <h2>Gerenciamento de Jogos</h2>               
+                <h2>Grupos</h2>               
             </div>
 
-        <form class="row" method="post">
-            <div class="md-form">
-                <i class="fa fa-user prefix grey-text"></i>
-                <input type="text" class="form-control" name="team_a" required>
-                <label for="orangeForm-name">Time A</label>
-            </div>
-            <div class="md-form">
-                <i class="fa fa-user prefix grey-text"></i>
-                <input type="text" class="form-control" name="team_b" required>
-                <label for="orangeForm-name">Time B</label>
-            </div>
-        
-            <div class="text-center">
-                <button class="btn btn-deep-orange">Criar Jogo</button>
-            </div>
-        </form>
-
-        <form method="post" action="/admin/games/results">
-        <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Jogos</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <% games.forEach( game => { %>             
-                    <tr>
-                        <th scope="row"><%= game.id %></th>
-                        <td>
-                            <% if(game.result_a === null){ %>
-                            <input class="col-md-1" name="team_<%= game.id %>[a]">
-                            <%= game.team_a %> vs <%= game.team_b %>
-                            <input class="col-md-1" name="team_<%= game.id %>[b]">
-                            <% }else{ %>
-                            <%= game.result_a %>
-                            <%= game.team_a %> vs <%= game.team_b %>
-                            <%= game.result_b %>
-                            <% } %>
-                        </td>
-                        <td><a href="/admin/games/delete/<%= game.id %>">Excluir</a></td>
-                    </tr>
-                <% }) %>
-                </tbody>
-            </table>
-            <input type="submit" class="btn btn-success" value="Informar Resultados">
+            <form class="row" method="post">
+                <div class="md-form">
+                    <i class="fa fa-user prefix grey-text"></i>
+                    <input type="text" class="form-control" name="name" required>
+                    <label for="orangeForm-name">Nome do Grupo</label>
+                </div>
+                
+                <div class="text-center">
+                    <button class="btn btn-deep-orange">Criar Grupo</button>
+                </div>
             </form>
 
+            <% if(groups.length > 0){ %>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Jogos</th>
+                            <th></th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% groups.forEach( group => { %>             
+                            <tr>
+                                <th scope="row"><%= group.id %></th>
+                                <td>
+                                    <a href="/groups/<%= group.id %>">
+                                        <%= group.name %>
+                                    </a>
+                                </td>
+                                <td><%= group.role %></td>
+                                <td>
+                                    <% if(group.role === 'owner'){ %>
+                                        <a href="/admin/group/delete/<%= group.id %>">Excluir</a>
+                                    <% } %>
+                                    <% if(!group.role){ %>
+                                        <a href="/groups/<%= group.id %>/join">Solicitar Entrada</a>
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } else { %>
+                <p class="alert alert-info">Nenhum grupo cadastrado. </p>
+            <% } %>
         </div>
     </section>
-    
-
     
     <footer class="page-footer center-on-small-only">
         <div class="footer-copyright">
