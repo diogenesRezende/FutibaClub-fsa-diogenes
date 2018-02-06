@@ -1,1 +1,0 @@
-repositorio Para abrigar a implementação do software proposto no Fullstack academy do devpleno
